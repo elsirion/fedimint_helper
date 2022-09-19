@@ -17,8 +17,8 @@ pkgs.python3Packages.buildPythonApplication {
   installPhase = ''
     runHook preInstall
     python setup.py install --prefix=$out
-    cp -r templates $out/lib/python3.9/site-packages/fedimint_helper-1.0-py3.9.egg/EGG-INFO/scripts/templates
-    cp -r static $out/lib/python3.9/site-packages/fedimint_helper-1.0-py3.9.egg/EGG-INFO/scripts/static
+#    cp -r templates $out/lib/python3.9/site-packages/fedimint_helper-1.0-py3.9.egg/EGG-INFO/scripts/templates
+#    cp -r static $out/lib/python3.9/site-packages/fedimint_helper-1.0-py3.9.egg/EGG-INFO/scripts/static
     wrapProgram $out/bin/faucet.py --prefix PYTHONPATH : "$(toPythonPath $out)"
     runHook postInstall
   '';

@@ -12,7 +12,7 @@ from lightning.lightning import RpcError
 from json2html import *
 
 rpc = LightningRpc(os.environ['RPC_SOCKET'])
-connect_str = os.environ['CONNECT_INFO']
+connect_str = os.environ['CONNECT_STRING']
 QRcode(app)
 
 

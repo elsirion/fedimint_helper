@@ -1,2 +1,2 @@
-recursive-include templates *
-recursive-include static *
+recursive-include app/templates *
+recursive-include app/static *
