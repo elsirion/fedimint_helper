@@ -1,0 +1,77 @@
+{% extends "base.html" %}
+
+{% block content %}
+<meta>
+<script src="/static/qr-scanner.legacy.min.js"></script>
+</meta>
+<div id="video-container">
+	<video id="video"></video>
+</div>
+
+<button id="scan" type="submit">Scan</button>
+<button id="stop" type="submit">Stop</button>
+<h1>Paste Invoice</h1>
+
+<form action="" method="post" novalidate>
+	{{ form.hidden_tag() }}
+	<p>
+		{{ form.invoice.label }}<br>
+		{{ form.invoice(size=32) }}<br>
+		{% for error in form.invoice.errors %}
+		<span style="color: red;">[{{ error }}]</span>
+		{% endfor %}
+	</p>
+	{% if pay_result %}
+	<pre>{{ pay_result | safe }}</pre>
+	{% endif %}
+
+	<p>{{ form.submit() }}</p>
+</form>
+
+<script type="module">
+	var scan = document.getElementById('scan');
+	var stop = document.getElementById('stop');
+	var video = document.getElementById('video');
+	var invoice = document.getElementById('invoice');
+	var videoContainer = document.getElementById('video-container');
+
+	function stopCamera() {
+		qrScanner.stop()
+		stop.style.display = "none"
+		scan.style.display = "block"
+		videoContainer.style.display = "none"
+	}
+
+	scan.addEventListener('click', function () {
+		qrScanner.start()
+		stop.style.display = "block"
+		scan.style.display = "none"
+		videoContainer.style.display = "block"
+	})
+	stop.addEventListener('click', stopCamera)
+
+	const qrScanner = new QrScanner(
+		video,
+		result => {
+			let parsed = result.replace("lightning:", "")
+			invoice.value = parsed;
+			stopCamera()
+		},
+	);
+
+</script>
+
+<style>
+	#video {
+		width: 400px;
+	}
+
+	#video-container {
+		display: none;
+	}
+
+	#stop {
+		display: none;
+	}
+</style>
+{% endblock %}

@@ -1,0 +1,17 @@
+{% extends "base.html" %}
+
+{% block content %}
+<h1>Join Us!</h1>
+<img style="height: 200px; width: 200px;" src="{{ qrcode(connect_str) }}">
+<br>
+<pre>{{ connect_str }}</pre>
+<br>
+<div>
+    <p>Helpful Links</p>
+    <ul>
+        <li><a href="https://fedimint.org">Website</a></li>
+        <li><a href="https://github.com/fedimint">Github</a></li>
+        <li><a href="https://discord.gg/Aa2GCWAb">Discord</a></li>
+    </ul>
+</div>
+{% endblock %}
